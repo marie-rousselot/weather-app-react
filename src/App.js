@@ -13,13 +13,23 @@ export default function App() {
         >
           Marie Rousselot
         </a>{" "}
-        and is{" "}
+        and is open-sourced on{" "}
         <a
           href="https://github.com/marie-rousselot/weather-app-react"
           target="_blank"
           rel="noopener noreferrer"
         >
-          open-sourced on GitHub</a>{" "}and hosted on Netlify
+          GitHub
+        </a>{" "}
+        and hosted on
+        <a
+          href="https://marie-weather-app-react.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {" "}
+          Netlify
+        </a>
       </footer>
     </div>
   );
