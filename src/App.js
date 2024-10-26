@@ -4,7 +4,9 @@ import "./App.css";
 export default function App() {
   return (
     <div className="App">
-      <footer>
+      <div className="container">
+       <h1>Weather appn</h1> 
+       <footer>
         This project was coded by{" "}
         <a
           href="https://www.shecodes.io/graduates/111105-marie-rousselot"
@@ -31,6 +33,7 @@ export default function App() {
           Netlify
         </a>
       </footer>
+      </div>
     </div>
   );
 }
