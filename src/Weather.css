@@ -8,8 +8,7 @@
 }
 
 .Weather .logo {
-  max-width: 80px;
-  display: block;
+  max-height: 80px;
 }
 
 .Weather form {

@@ -46,7 +46,11 @@ export default function Weather(props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src="images/codingpro_logo.png" className="logo" alt="CodingPro logo" />
+          <img
+            src="/images/codingpro_logo.png"
+            class="logo"
+            alt="Marie Rousselot CodingPro logo"
+          />
         </a>
         <form onSubmit={handleSubmit}>
           <div className="row">
