@@ -1,51 +1,101 @@
-import React from "react";
+import React, { useState } from "react";
+import WeatherInfo from "./WeatherInfo";
+import WeatherForecast from "./WeatherForecast";
+import axios from "axios";
 import "./Weather.css";
 
-export default function Weather(){
+export default function Weather(props) {
+  const [weatherData, setWeatherData] = useState({ ready: false });
+  const [city, setCity] = useState(props.defaultCity);
+
+  function handleResponse(response) {
+    setWeatherData({
+      ready: true,
+      coordinates: response.data.coordinates,
+      temperature: response.data.temperature.current,
+      humidity: response.data.temperature.humidity,
+      date: new Date(response.data.time * 1000),
+      description: response.data.condition.description,
+      icon: response.data.condition.icon,
+      wind: response.data.wind.speed,
+      city: response.data.city,
+    });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+
+  function handleCityChange(event) {
+    setCity(event.target.value);
+  }
+
+  function search() {
+    const apiKey = "eac360db5fc86ft86450f3693e73o43f";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+    axios.get(apiUrl).then(handleResponse);
+  }
+
+  if (weatherData.ready) {
     return (
       <div className="Weather">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="row">
-            <div className="col-9">
+            <div className="col-9 ">
               <input
                 type="search"
                 placeholder="Enter a city.."
-                className="form-control"
-                autoFocus="on"
+                className="form-control search-input"
+                onChange={handleCityChange}
               />
             </div>
-            <div className="col-3">
-              <input type="submit" value="Search" className="btn btn-primary" />
+            <div className="col-3 p-0">
+              <input
+                type="submit"
+                value="Search"
+                className="btn btn-primary w-100"
+              />
             </div>
           </div>
         </form>
-        <h1>Perth</h1>
-        <ul>
-          <li>Saturday 22:26</li>
-          <li>Clear</li>
-        </ul>
-        <div className="row mt-3">
-          <div className="col-6">
-            <div className="clearfix">
-              <img
-                src="https://ssl.gstatic.com/onebox/weather/64/sunny.png"
-                alt="Clear"
-                className="float-left"
-              ></img>
-              <div className="float-left">
-                <span className="temperature">16</span>
-                <span className="unit">°C</span>
-              </div>
-            </div>
-            <div className="col-6">
-              <ul>
-                <li>Precipitation: 0%</li>
-                <li>Humidity: 72%</li>
-                <li>Wind: 18 km/h</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <WeatherInfo data={weatherData} />
+        <WeatherForecast
+          coordinates={weatherData.coordinates}
+          city={weatherData.city}
+        />
+        <footer>
+          This project was coded by{" "}
+          <a
+            href="https://www.shecodes.io/graduates/111105-marie-rousselot"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Marie Rousselot
+          </a>{" "}
+          and is open-sourced on{" "}
+          <a
+            href="https://github.com/marie-rousselot/weather-app-react"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>{" "}
+          and hosted on
+          <a
+            href="https://marie-weather-app-react.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {" "}
+            Netlify
+          </a>
+        </footer>
       </div>
     );
+  } else {
+    search();
+    return "Loading...";
+  }
 }
