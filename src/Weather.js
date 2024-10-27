@@ -46,7 +46,7 @@ export default function Weather(props) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src="/images/logo.png" className="logo" alt="SheCodes Logo" />
+          <img src="images/codingpro_logo.png" className="logo d-none d-md-block" alt="CodingPro logo" />
         </a>
         <form onSubmit={handleSubmit}>
           <div className="row">
